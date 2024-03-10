@@ -1,0 +1,96 @@
+[gd_scene load_steps=8 format=3 uid="uid://c2p58v0c158q5"]
+
+[ext_resource type="Script" path="res://Scripts/player.gd" id="1_xmrlo"]
+[ext_resource type="AudioStream" uid="uid://dlbyqh5t8lu6o" path="res://Audio/footstep.wav" id="2_4ijps"]
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_dwtym"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_25ujg"]
+radius = 0.3
+height = 1.8
+
+[sub_resource type="Animation" id="Animation_8m82e"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0.657518, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("stepsounds:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_pwb30"]
+resource_name = "headbob"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Camera3D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector3(0, 0.657518, 0), Vector3(0, 0.45, 0), Vector3(0, 0.657518, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("stepsounds:playing")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8yqmd"]
+_data = {
+"RESET": SubResource("Animation_8m82e"),
+"headbob": SubResource("Animation_pwb30")
+}
+
+[node name="player" type="CharacterBody3D"]
+script = ExtResource("1_xmrlo")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("CapsuleShape3D_dwtym")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_25ujg")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.657518, 0)
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8yqmd")
+}
+
+[node name="stepsounds" type="AudioStreamPlayer3D" parent="."]
+stream = ExtResource("2_4ijps")
+volume_db = 4.103
+
+[connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
