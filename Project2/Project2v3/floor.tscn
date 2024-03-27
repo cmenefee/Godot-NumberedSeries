@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=3 uid="uid://daxn4nyvwsxl2"]
+
+[ext_resource type="Script" path="res://floor.gd" id="1_15nsp"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_jogb5"]
+size = Vector3(20, 1, 20)
+
+[sub_resource type="BoxMesh" id="BoxMesh_bnv6l"]
+flip_faces = true
+size = Vector3(20, 1, 20)
+
+[node name="Floor" type="StaticBody3D"]
+script = ExtResource("1_15nsp")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_jogb5")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_bnv6l")

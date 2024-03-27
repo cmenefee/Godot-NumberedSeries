@@ -1,0 +1,41 @@
+[gd_scene load_steps=4 format=3 uid="uid://doh7nofpm4hjv"]
+
+[ext_resource type="Script" path="res://main.gd" id="1_6r6el"]
+[ext_resource type="PackedScene" uid="uid://daxn4nyvwsxl2" path="res://floor.tscn" id="2_63bmq"]
+[ext_resource type="PackedScene" uid="uid://ddaryb6a7upey" path="res://box.tscn" id="3_6alu4"]
+
+[node name="root" type="Node3D"]
+script = ExtResource("1_6r6el")
+
+[node name="Floor" parent="." instance=ExtResource("2_63bmq")]
+
+[node name="Box" parent="." instance=ExtResource("3_6alu4")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 11.0905, 0)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.823988, 0.566608, 0, -0.566608, 0.823988, 0, 6.74101, 5.95978)
+
+[node name="LightNode" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14335, 0)
+
+[node name="OmniLight3D" type="OmniLight3D" parent="LightNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 9.18241, 0)
+light_energy = 16.0
+
+[node name="OmniLight3D2" type="OmniLight3D" parent="LightNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.78018, 2.81854, 0)
+light_energy = 16.0
+
+[node name="OmniLight3D4" type="OmniLight3D" parent="LightNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.321626, 2.81854, -4.67584)
+light_energy = 16.0
+
+[node name="OmniLight3D5" type="OmniLight3D" parent="LightNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.321626, 2.81854, 2.70381)
+light_energy = 16.0
+
+[node name="OmniLight3D3" type="OmniLight3D" parent="LightNode"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.8433, 2.95371, 0)
+light_energy = 16.0
+
+[connection signal="input_event" from="Box" to="Box" method="_on_input_event"]
